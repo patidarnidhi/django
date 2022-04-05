@@ -1,0 +1,28 @@
+{%extends 'base.html'%}
+
+{%block title %}AddData{%endblock%}
+
+{%block content %}
+
+<head>
+    <style>
+        h1{
+            text-align: center;
+        }
+        form{
+            text-align: center;
+        }
+        form input{
+            width:500px;
+        }
+    </style>
+</head>
+<br>
+<h1>Add your feedback here</h1><br>
+<form method="post" style="font-size: 20px;">
+    {%csrf_token%}
+    {{ form.as_p }}
+    <button type="submit" name="savetodo" class="btn-danger" style="border: 1px; border-radius: 10px; font-size: 20px; padding: 5px;">Submit</button>
+</form>
+<br><br>
+{%endblock%}

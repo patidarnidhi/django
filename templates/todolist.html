@@ -1,0 +1,64 @@
+{%extends 'base.html'%}
+
+{%block content%}
+<head>
+	<style>
+		tr,table,th,td{
+			border:2px solid crimson;
+			width: 200px;
+			height: 50px;
+		}
+		table{
+			width: 100%;
+			text-align: center;
+		}
+		button{
+			color: white;
+			background-color: crimson;
+			border-radius: 10px;
+			border: 1px solid white ;
+		}
+	</style>
+</head>
+
+
+<table id="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Name</th>
+            <th>CreatedAt</th>
+            <th>UpdatedAt</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%for todo in todos%}
+        <tr>
+            <td>{{ todo.title }}</td>
+            <td>{{ todo.description }}</td>
+            <td>{{ todo.name }}</td>
+            <td>{{ todo.created_at }}</td>
+            <td>{{ todo.updated_at }}</td>
+            <td>
+                <a href="{%url 'todo:todoedit' todo.id%}"><button>Update</button></a>
+                <a href="{%url 'todo:tododelete' todo.id%}"> <button>Delete</button></a>
+            </td>
+        </tr>
+        {%endfor%}
+    </tbody>
+</table><br><br>
+<button><a id="downLink" onclick="exportF(this)">Download in excel</a></button>
+<script>
+    function exportF(elem) {
+      var table = document.getElementById("table");
+      var html = table.outerHTML;
+      var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
+      elem.setAttribute("href", url);
+      elem.setAttribute("download", "export.xls"); // Choose the file name
+      return false;
+    }
+    
+</script>
+    
+{%endblock%}
